@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Trainer Schedule{% endblock %}
+
+
+{% block content %}
+<style>
+  label {
+    margin: 15px 0 5px 0;
+  }
+</style>
+
+<!-- search criteria form -->
+<div class="container">
+
+  <h1 class="heading mt-4">Trainers Schedule</h1>
+  <a href="{{url_for('admin')}}" class="btn btn-dark goback-btn mx-5">Back to Admin Portal</a>
+
+  <form id='checkinForm' class="form-signin" method="POST" action="{{url_for('admin_trainer_schedule')}}">
+    <h5 class="form-signin-heading">Please select the trainer and dates to check:</h5>
+    <!-- CSRF token -->
+    {{ form.hidden_tag()}}
+    {{ form.select_trainer.label }}
+    {{ form.select_trainer(class="form-control") }}
+    {{ form.start_date.label }}
+    {{ form.start_date(class="form-control") }}
+    {{ form.ending_date.label }}
+    {{ form.ending_date(class="form-control") }}
+    {{ form.submit(class="btn btn-primary mt-5", style="padding: 7px 20px; margin-right: 20px;", value="Check") }}
+    <input type="reset" class="btn btn-secondary mt-5" style="padding: 7px 20px;" value="Reset" onclink="clearFields()">
+  </form>
+</div>
+
+<!-- Trainer Schedule Results -->
+
+<div class="container mt-5">
+  {% if results is defined %}
+  {% if results %}
+  <table class="table table-striped table-hover align-middle styled-table">
+    <tr>
+      {% for rec in column_names %}
+      <th>{{rec}}</th>
+      {% endfor %}
+    </tr>
+
+    <tbody>
+      <tr>
+        {% set trainerrc = namespace(id= 0) %}
+        {% for rc in results %}
+        {% if trainerrc.id != rc[0] %}
+        <td>{{rc[0]}}</td>
+        <td>{{rc[1]}}</td>
+        {% set trainerrc.id = rc[0] %}
+        {% else %}
+        <td></td>
+        <td></td>
+        {% endif %}
+        <td>{{rc[2]}}</td>
+        <td>{{rc[3]}}</td>
+        <td>{{rc[4]}}</td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h2 class="mx-5">No matched results</h2>
+  {% endif %}
+  {% endif %}
+</div>
+
+<script>
+  function clearFields() {
+    document.getElementById("checkinForm").reset();
+  }
+</script>
+
+{% endblock %}

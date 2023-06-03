@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}News{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    background-image: url('../static/img/newsimg.png');
+    width: 110%;
+    background-size: 110%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+  }
+</style>
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+
+
+{% for news in one_page %}
+
+<div class="news-wrapper">
+  <div class="news-container">
+    <div class="row">
+      <div class="col-12 col-lg-8 mt-4", style="margin-left: 50%;">
+        <article class="small-story">
+          <div class="newscard">
+            <h5 class="post-title">{{news[2]}}</h5>
+            <div class="date mb-4" style="text-align: center;">
+              <span class="date">
+                <time datetime="{{news[4]}}">{{news[4]}}</time>
+              </span>
+            </div>
+            <div class="main-content">
+              <p style="font-size: larger; color: grey; font-style: italic;">{{news[3][:50]}} .... </p>
+            </div>
+            <a href="/news/{{news[0]}}" class="read-more" style="color:grey; font-weight: 500;">Read more</a>
+            <hr>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endfor %}
+
+<!-- display pages according to current page and total pages -->
+
+
+<div class="navpage mt-3" style="margin-left: 50%;">
+  {% if current_page != 1 %}
+    <a class="btn btn-outline-dark mb-4" href="{{ url_for('news', page=current_page-1) }}">
+      <span aria-hidden="true">&laquo;</span>
+    </a>
+  {% endif %}
+  
+  {% for page_num in range(1, pages+1) %}
+    {% if page_num in [1, 2, 3, current_page, current_page-1, current_page+1, pages-3, pages-2, pages-1] or (current_page <= 4 and page_num == 4) or (current_page >= pages-3 and page_num == pages-3) %}
+      {% if current_page == page_num %}
+        <a class="btn btn-dark mb-4" href="{{ url_for('news', page=page_num) }}">{{ page_num }}</a>
+      {% else %}
+        <a class="btn btn-outline-dark mb-4" href="{{ url_for('news', page=page_num) }}">{{ page_num }}</a>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if current_page != pages %}
+    <a class="btn btn-outline-dark mb-4" href="{{ url_for('news', page=current_page+1) }}">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  {% endif %}
+</div>
+  
+  
+
+
+
+{% endblock %}

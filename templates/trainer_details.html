@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Trainer Details{% endblock %}
+
+
+{% block content %}
+
+<!-- Display an error message if membership gonna expired -->
+{% for message in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+<br>
+
+<h3 style="text-align:center"> Trainer Details</h3>
+<br>
+<a href="{{url_for('trainer')}}" class="btn btn-dark goback-btn mx-5">Back to Trainer Portal</a>
+
+
+<div class="p_container">
+  <div class="row">
+    {% for info in trainer_info %}
+    <div class="col-md-4 img" style="margin-top: 20px; margin-left: 15%;">
+      <img src=" {{info.8}} " class="img-fluid" alt="Trainer's photo">
+    </div>
+
+    <div class="col-md-6 details">
+      <blockquote>
+        <h5>{{info.1}} {{info.2}}</h5>
+        <small><i class="icon-map-marker"> </i><cite title="Source Title">{{info.7}} </cite></small>
+      </blockquote>
+
+      <small>Staff ID:</small>
+      <h6>{{info.0}}</h6>
+      <small>Date of Birth:</small>
+      <h6>{{info.5}}</h6>
+      <small>Email Address:</small>
+      <h6>{{info.3}}</h6>
+      <small>Phone Number:</small>
+      <h6>{{info.4}}</h6>
+      <small>Staff Type:</small>
+      <h6>{{info.6}}</h6><br>
+      <a type="button" class="btn btn-secondary" id="myBtn" data-bs-toggle="modal" data-bs-target="#myModal" href="#">
+        Edit </a>
+    </div>
+
+
+    <!-- Modal Edit Trainer Details-->
+    <div class=" modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Update Information</h4>
+          </div>
+          <div class="modal-body" id="modal-body">
+
+            <form action="{{url_for('trainer_edit')}}" method="POST">
+
+              <div class="form-group">
+                <label>First Name:</label>
+                <input type="hidden" name="memberID" value="{{info[1]}}">
+                <input type="text" class="form-control" id="firstname" name="firstname" value="{{info[1] }}">
+              </div>
+              <div class="form-group">
+                <label>Last Name:</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" value="{{info[2]}}">
+              </div>
+
+              <div class="form-group">
+                <label>Phone Number:</label>
+                <input type="text" class="form-control" id="phone" name="phone" value="{{info[4]}}">
+              </div>
+              <div class="form-group">
+                <label>Date of Birth:</label>
+                <input type="text" class="form-control" id="dob" name="dob" value="{{info[5]}}">
+              </div>
+              <div class="form-group">
+                <label>About Me:</label>
+                <input type="text" class="form-control" id="about_me" name="about_me" value="{{info[7]}}">
+              </div>
+              <div class="form-group">
+                <label>Photo Link:</label>
+                <input type="text" class="form-control" id="photo_link" name="photo_link" value="{{info[8]}}">
+              </div>
+
+          </div>
+          <div class="modal-footer  justify-content-between">
+            <button class="btn btn-primary modal-btn float-left" type="submit">Update</button>
+            <button type="button" class="btn btn-secondary float-right" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+
+
+{% endblock %}

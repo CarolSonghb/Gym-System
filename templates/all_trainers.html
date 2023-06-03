@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Trainers{% endblock %}
+
+
+{% block content %}
+
+<button class="btn btn-dark goback-btn" style="margin-left: 3%; margin-top: 3%;" onclick="goBack()">
+  Go Back</button>
+<h1 class="heading">Trainers List</h1>
+<h5 style="margin-left: 3%; margin-bottom: 2%;">Click to see trainer's profile</h5>
+
+
+<div class="info_table mx-3">
+
+
+  <table class="table table-hover table-striped ">
+    <caption>All Trainers</caption>
+    <thead>
+
+      <tr>
+        {% for column in column_names %}
+        <th>{{column}}</th>
+        {% endfor %}
+      </tr>
+
+    </thead>
+
+    <tbody>
+      {% for trainer in trainers %}
+      <tr>
+        <td><a href="{{url_for('available_sessions', trainer_id=trainer.0 , member_id=member_id )  }}">{{trainer.0}}</a>
+        </td>
+        <td>{{trainer.1}}</td>
+        <td>{{trainer.2}}</td>
+        <td>{{trainer.3}}</td>
+        <td>{{trainer.4}}</td>
+        <td>{{trainer.5}}</td>
+        <td>{{trainer.6}}</td>
+        <td>{{trainer.7}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+
+</div>
+
+
+{% endblock %}

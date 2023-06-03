@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Classes{% endblock %}
+
+
+{% block content %}
+
+<!-- Display an error message if membership gonna expired -->
+{% for message in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+
+<button class="btn btn-dark goback-btn" style="margin-left: 8%; margin-top: 3%;" onclick="goBack()">
+  Go Back</button>
+<h1 class="heading mt-2">Class Schedule</h1>
+
+
+<div class="info_table mx-3">
+  <h3 style="text-align:center">Scheduled in the Next 14 Days</h3>
+  <table class="table table-hover table-striped styled-table" , style="margin-top: 2%;">
+    <caption>Group classes</caption>
+
+    <thead>
+
+      <tr>
+
+        <th> Class ID</th>
+        <th>Class Name</th>
+        <th>Trainer Name</th>
+        <th>Class Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Location</th>
+        <th>Availability</th>
+        <th>Book</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+      {% for class in classes %}
+      <form action="{{url_for('class_booking', member_id=member_id )}}" method="post"></form>
+      <tr>
+        <td>{{class.0}}</td>
+        <td>{{class.1}}</td>
+
+        <td>{{class.3}}</td>
+        <td>{{class.4}}</td>
+        <td>{{class.5}}</td>
+        <td>{{class.6}}</td>
+        <td>Room G</td>
+        {% if class.9 %}
+        <td>{{class.9}}/30</td>
+        {% else %}
+        <td>0/30 </td>
+        {% endif %}
+
+        <td>
+          <form method="post" action="{{url_for('class_booking', member_id=member_id )}}">
+            <input type="hidden" name="class_id" value="{{class.0}}">
+            <input type="hidden" name="slot_id" value="{{class.7}}">
+            <input type="hidden" name="class_date" value="{{class.4}}">
+            {% if class.9 == None %}
+            <input class="btn btn-success" type="submit" value="Book" />
+            {% elif class.9 >29 %}
+            <input type="hidden" class="btn btn-success" type="submit" value="Book" disabled />
+            {% else %}
+            <input class="btn btn-success" type="submit" value="Book" />
+            {% endif %}
+
+          </form>
+        </td>
+
+      </tr>
+      {% endfor %}
+      </form>
+    </tbody>
+  </table>
+
+
+
+</div>
+
+
+
+
+
+
+{% endblock %}

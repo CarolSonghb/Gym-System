@@ -1,0 +1,341 @@
+body {
+  background: #f8f6f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1.heading {
+  color: darkcyan;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+/* background image for login page */
+.bg-img {
+  background-image: url('../img/bkg.jpg');
+  min-height: 650px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+/* background image for home page */
+.hpcontainer img {
+  min-height: 650px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+/* style for hp signup button */
+.hpcontainer .btn {
+  position: absolute;
+  top: 70%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #56bfc6;
+  color: white;
+  font-size: 30px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  font-family: 'Prata', serif;
+}
+
+.hpcontainer .btn:hover {
+  background-color: #f8aa44
+}
+
+/* style the login form nicely */
+.formcontainer {
+  width: 100%;
+  position: absolute;
+  margin: 100px;
+  max-width: 500px;
+  padding: 30px;
+  background-color: white;
+}
+
+.form-signin-heading {
+  text-align: left;
+  margin-bottom: 50px;
+}
+
+.emaillabel {
+  font-size: large;
+  margin-bottom: 20px;
+}
+
+/* style the sign in form */
+.form-signin {
+  background-color: rgba(38, 168, 219, 0.1);
+  border: 2px solid #328ebc;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 20px;
+}
+
+.adminbk {
+  background-color: #dfe1e1;
+  background-size: cover;
+  
+}
+
+.searchinput {
+  padding: 8px;
+  width: 50%;
+  border-radius: 5px;
+}
+
+.searchinput2 {
+  width: 30%;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+h1 {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+
+.card {
+  width: 18rem; 
+  display: inline-block; 
+  margin: 20px;
+}
+
+
+.contactcontainer {
+  display: flex;
+  float: center;
+  max-width: fit-content;
+  margin-top: 8%;
+  margin-left: 20%;
+}
+
+.info {
+  margin-left: 100px;
+  font-weight:700;
+
+}
+
+.jumbotron {
+  max-width: 100%;
+  padding-top: 40px;
+  padding-bottom: 80px;
+  color: inherit;
+  
+}
+.jumbotron h1 {
+  position: relative;
+  display: block;
+  font-size: 40px;
+  padding-left: 40px;
+}
+.jumbotron p {
+  position: relative;
+  display: block;
+  font-size: 20px;
+  padding-left:40px;
+}
+
+.py-4 {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.post-title {
+  font-size: 28px;
+  font-family: sans-serif;
+}
+
+.map {
+  padding-bottom: 50%;
+  position: relative;
+}
+
+.map iframe {
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: relative;
+}
+
+
+
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 7rem;
+}
+
+#footer {
+  text-align: center;
+  font-family: sans-serif;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 7rem;
+}
+
+#compname {
+  margin: 8px;
+}
+
+
+
+/* The flip box container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-box {
+  background-color: transparent;
+  width: 200px;
+  height: 300px;
+  border: 1px solid #f1f1f1;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-box-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-box:hover .flip-box-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-box-front, .flip-box-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-box-front {
+  background-color: #bbb;
+  color: black;
+}
+
+/* Style the back side */
+.flip-box-back {
+  background-color: rgb(62, 64, 65);
+  color: white;
+  transform: rotateY(180deg);
+}
+
+
+.newscard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+}
+
+
+.single-news-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.news {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.news h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: 700;
+}
+
+.news-date {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  font-weight: 100;
+}
+
+.news .main-content {
+  font-size: 22px;
+  line-height: 1.5;
+  margin-top: 35px;
+  margin-left: 5%;
+  font-weight: 300;
+}
+
+.form-control {
+  padding: 10px;
+}
+
+.p_container{
+  padding:5%;
+}
+.p_container .img{
+  text-align:center;
+}
+.p_container .details{
+  border-left:3px solid #ded4da;
+}
+.p_container .details p{
+  font-size:15px;
+  font-weight:bold;
+}
+
+.error_container{
+  text-align: center;
+}
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+  background-color:darkcyan;
+  color: #ffffff;
+  text-align: left;
+}
+
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+

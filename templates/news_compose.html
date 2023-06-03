@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Compose a News{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="container mt-5">
+  <button class="btn btn-dark goback-btn mb-2" onclick="goBack()">
+  Go Back</button>
+  
+  {% if is_editing %}
+  <h2 class="heading" style="text-align: center;">Edit News</h2>
+
+  <form class="form-signin" method="POST" action="{{ url_for('news_edit', news_id=news_id)}}">
+
+    <!-- CSRF token -->
+    {{ form.hidden_tag() }}
+
+
+    {{ form.title.label (class="mb-2", style="padding: 10px;") }}
+    {{ form.title(class="form-control") }}
+    <br />
+    {{ form.content.label (class="mb-2") }}
+    {{ form.content(class="form-control", style="height: 180px;") }}
+    <br />
+    {{ form.date.label (class="mb-2") }}
+    {{ form.date(class="form-control", style="padding: 10px;") }}
+    <br />
+
+    <input type="submit" class="btn btn-warning btn-block mt-3" value="Submit"
+      style="padding: 7px 20px; margin-right: 20px;">
+    <input type="reset" class="btn btn-secondary btn-block mt-3" value="Reset" style="padding: 7px 20px;">
+
+
+  </form>
+</div>
+
+
+{% else %}
+
+
+
+<div class="container">
+  <h2 class="heading" style="text-align: center;">Post News</h2>
+  <form class="form-signin" method="POST" action="{{ url_for('news_compose')}}">
+
+    <!-- CSRF token -->
+    {{ form.hidden_tag() }}
+
+
+    {{ form.title.label (class="mb-2") }}
+    {{ form.title(class="form-control", style="padding: 10px;") }}
+    <br />
+    {{ form.content.label (class="mb-2")}}
+    {{ form.content(class="form-control", style="height: 180px;") }}
+    <br />
+    {{ form.date.label (class="mb-2") }}
+    {{ form.date(class="form-control", style="padding: 10px;") }}
+    <br />
+
+    <input type="submit" class="btn btn-warning btn-block mt-3" value="Post"
+      style="padding: 7px 20px; margin-right: 20px;">
+    <input type="reset" class="btn btn-secondary btn-block mt-3" value="Reset" style="padding: 7px 20px;">
+
+
+  </form>
+</div>
+
+{% endif %}
+
+
+
+
+
+{% endblock %}

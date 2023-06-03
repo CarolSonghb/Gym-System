@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Attendace{% endblock %}
+<script>
+  $(document).ready(function () {
+    $('#myTable').dataTable();
+  });
+</script>
+
+{% block content %}
+
+
+<h1 class="heading mt-4">Attendance Record </h1>
+
+
+
+
+<br />
+{% if booked_info %}
+<h3 class="text-center"> Hi {{booked_info.0 .1}} {{booked_info.0.0}}, please check your attendance record:</h3>
+
+<button class="btn btn-dark goback-btn mx-5" onclick="goBack()">
+  Go Back to Member Portal </button>
+
+<!-- table to show attendance record -->
+
+
+<div class="info_table mx-3 mt-4">
+
+  <table id="myTable" class="table table-hover table-striped ">
+
+    <caption>Attendacne</caption>
+    <thead>
+
+      <tr>
+        <th>Class ID</th>
+        <th>Class Date</th>
+        <th>Class Name</th>
+        <th>Trainer Name</th>
+        <th>Time</th>
+        <th>Has Attended</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+      <tr>
+
+        {% for info in booked_info %}
+        <td>{{info.2}}</td>
+        <td>{{info.3}}</td>
+        <td>{{info.4}}</td>
+        <td>{{info.5}}</td>
+        <td>{{info.6}}</td>
+        {% set attended = info[7] | string %}
+        {% if attended == "1" %}
+        {% set attended = "Yes" %}
+        {% else %}
+        {% set attended = "No"%}
+        {% endif %}
+        <td>{{attended}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+
+</div>
+{% else %}
+<h3 class="mx-5">You currently do not have any attendance record.</h3>
+{% endif %}
+
+
+
+
+
+
+{% endblock %}

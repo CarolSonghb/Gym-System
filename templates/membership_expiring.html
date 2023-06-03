@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Attendance report{% endblock %}
+
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+<a href="{{url_for('admin')}}" class="btn btn-dark goback-btn mt-5 mx-5">Back to Admin Portal</a>
+<div class="container">
+
+  <h1 class="heading mt-2"> Membership Expiring in the Next 15 Days </h1>
+
+
+
+  <!-- Membership list -->
+  {% if results %}
+  <hr>
+  <h6 class="form-signin-heading">Total results: {{ number }}</h6>
+  <table class="table table-striped table-hover bg-white align-middle">
+    <tr>
+      {% for name in column_names %}
+      <th>{{name}}</th>
+      {% endfor %}
+    </tr>
+
+    {% for info in results %}
+    <tr>
+      <td>{{info[0]}}</td>
+      <td>{{info[1]}}</td>
+      <td>{{info[2]}}</td>
+      <td>{{info[3]}}</td>
+      <td>{{info[4]}}</td>
+
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+</div>
+
+{% endblock %}

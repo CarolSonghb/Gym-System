@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Revenue report{% endblock %}
+
+
+{% block content %}
+
+<!-- Display flash message-->
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+<!-- End of flash message -->
+
+<style>
+  label {
+    margin: 15px 0 5px 0;
+  }
+</style>
+
+<div class="container">
+  <h1 class="heading mt-4">Revenue Report</h1>
+  <a href="{{url_for('admin')}}" class="btn btn-dark goback-btn mx-5">Back to Admin Portal</a>
+
+  <!-- search criteria form -->
+
+  <form id='checkinForm' class="form-signin" method="POST" action="{{url_for('revenue_report')}}">
+
+    <h5 class="form-signin-heading">Please select the date range to view the report</h5>
+
+    <!-- CSRF token -->
+    {{ form.hidden_tag()}}
+    {{ form.start_date.label }}
+    {{ form.start_date(class="form-control") }}
+    {{ form.ending_date.label }}
+    {{ form.ending_date(class="form-control") }}
+    {{ form.submit(class="btn btn-primary mt-5", style="padding: 7px 20px; margin-right: 20px;") }}
+  </form>
+
+
+  <!-- Attendence report -->
+  {% if revenue %}
+  {% if total_revenue == None %}
+  <h6 class="form-signin-heading">Total Revenue: $ 0</h6>
+  {% else %}
+  <div class="row p-4">
+    <div class="card m-auto" style="width: 90%;">
+      <div class="card-body">
+        <div id="piechart"></div>
+        <p class="card-text">Total Revenue: $ {{ total_revenue}} </p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+
+  {% endif %}
+
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+  var graphs = {{ graphJSON | safe}};
+  Plotly.plot("piechart", graphs, {});
+</script>
+
+
+
+{% endblock %}

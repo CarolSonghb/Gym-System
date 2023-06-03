@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block title %}Sign in{% endblock %} {% block
+content %}
+
+<!-- Display an error message if email address doesn't exist -->
+{% for message in get_flashed_messages() %}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endfor %}
+
+
+
+
+<div class="bg-img">
+  <form class="formcontainer" method="POST" action="{{ url_for('login')}}">
+    <h1 class="form-signin-heading">Login</h1>
+    <!-- CSRF token -->
+    {{ form.hidden_tag() }} 
+    {{ form.email.label(class="emaillabel") }} 
+    {{ form.email(class="form-control") }}
+    <br />
+
+
+    <div class="d-grid gap-2 d-block">
+      {{ form.submit(class="btn btn-dark mt-3")}}
+      <p class="registernote mt-3"style="text-align: center;">Register now if you are a new member</p>
+      <a
+        href="{{ url_for('register')}}"
+        type="button"
+        class="btn btn-secondary btn-block"
+        >Register</a
+      >
+    </div>
+
+{% endblock %}
+

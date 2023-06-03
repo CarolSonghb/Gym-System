@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Attendance report{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+
+  <h1 class="heading mt-4">Attendance Report</h1>
+
+  <a href="{{url_for('admin')}}" class="btn btn-dark goback-btn mx-5">Back to Admin Portal</a>
+  <!-- search criteria form -->
+
+  <form id='checkinForm' class="form-signin" method="POST" action="{{url_for('attendance_report')}}">
+    <h5 class="form-signin-heading">Please select the date range to check report </h5>
+    <!-- CSRF token -->
+    {{ form.hidden_tag()}}
+    {{ form.start_date.label(class="mb-2") }}
+    {{ form.start_date(class="form-control", style="padding: 10px;") }}
+    {{ form.ending_date.label(class="my-2") }}
+    {{ form.ending_date(class="form-control", style="padding: 10px;") }}
+    {{ form.submit(class="btn btn-warning mt-5", style="padding: 7px 20px; margin-right: 20px;") }}
+  </form>
+
+
+  <br>
+  <!-- Attendence report -->
+  {% if records %}
+  <h6 class="form-signin-heading mb-1">Total Attendance: {{ total_visits[0] }}</h6>
+  <!-- line chart to show attendance -->
+  <div class="row p-4">
+    <div class="card mb-8 m-auto" style="width: 90%;">
+      <div class="card-body">
+        <div id="chart"></div>
+        <p class="card-text"> <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop">
+          Check Detailed Report
+          </button></p>
+      </div>
+    </div>
+  </div>
+  <!-- end of chart -->
+
+
+  <!-- Modal -->
+
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <!-- <div class="modal-dialog modal-dialog-scrollable"></div> -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Detailed Attendance Report</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped table-hover bg-white align-middle">
+            <tr>
+              {% for col in column_names %}
+              <th>{{col}}</th>
+              {% endfor %}
+            </tr>
+
+            {% for rc in records %}
+            <tr>
+              <td>{{rc[0]}}</td>
+              <td>{{rc[1]}}</td>
+              <td>{{rc[2]}}</td>
+              <td>{{rc[3]}}</td>
+
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% endif %}
+
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+  var graphs1 = {{ graphJSON | safe}};
+  Plotly.plot("chart", graphs1, {});
+
+
+</script>
+
+{% endblock %}

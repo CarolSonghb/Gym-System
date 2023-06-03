@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Admin Portal{% endblock %}
+
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+
+
+
+
+
+<!-- Jumbotron -->
+
+
+
+<div class="jumbotron adminbk mt-4">
+  <h3 class="display-6" style="text-align: center; font-family: Arial, Helvetica, sans-serif;"> Welcome to
+    {{staff_info.2}}'s portal, {{ staff_info.0 }} {{staff_info.1}} ! </h3>
+  <h4 class="mt-5" style="text-align: center;">Search a member here </h4>
+  <p class="lead">
+  <form class="form-search" style="text-align: center;" method="POST" action="/admin/search ">
+
+    {{form.hidden_tag()}}
+
+
+    {{ form.search(class="searchinput mt-2", placeholder="Member ID / Email / Name") }}
+
+    {{ form.submit(class="btn btn-dark btn-block m-2", style="font-size: 18px; padding: 7px 20px;")}}
+  </form>
+
+  </p>
+
+
+  <hr class="my-4">
+
+
+  
+  <div style="display: flex; justify-content: center;">
+    {% if staff_info.2 == 'Manager'%}
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{ url_for('static', filename='img/info-7.jpg') }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Check revenue report</h5>
+        <a href="{{url_for('revenue_report')}}" class="btn btn-dark mt-4">Revenue Report</a>
+      </div>
+    </div>
+    {% endif %}
+
+
+
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{ url_for('static', filename='img/info-9.jpg') }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Check attendance report</h5>
+        <a href="{{url_for('attendance_report')}}" class="btn btn-dark mt-4">Attendance
+          Report</a>
+      </div>
+    </div>
+
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{ url_for('static', filename='img/info-10.jpg') }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Check trainers' schedule </h5>
+        <a href="{{url_for('admin_trainer_schedule')}}" class="btn btn-dark mt-4">Trainer
+          Schedule</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: center;">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{ url_for('static', filename='img/info-4.jpg') }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Post a news here</h5>
+        <a href="{{url_for('news_compose')}}" class="btn btn-dark mt-4">Post News</a>
+      </div>
+    </div>
+
+
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{ url_for('static', filename='img/info-14.jpg') }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Register a new member </h5>
+        <a href="{{url_for('add_member')}}" class="btn btn-dark mt-4">Add New
+          Member</a>
+      </div>
+    </div>
+
+
+
+
+    
+
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{ url_for('static', filename='img/info-13.jpg') }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Check popular classes </h5>
+        <a href="{{url_for('manager_class_ranking')}}" class="btn btn-dark mt-4">Popular
+          Classes</a>
+      </div>
+    </div>
+  </div>
+
+  
+
+</div>
+<!-- Jumbotron end -->
+
+
+
+
+{% endblock %}

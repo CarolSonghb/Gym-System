@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% if is_member %}
+{% set title = "Member Profile" %}
+{% elif is_admin %}
+{% set title = "Member Details" %}
+{% endif %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+
+{% block content %}
+
+<!-- Display a reminder if membership is going to be expired -->
+{% for message in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+<div class="adminbk">
+
+  <div class="jumbotron">
+    {% if is_member %}
+    <h1 class="display-6" style="text-align: left; font-family: Arial, Helvetica, sans-serif;">Welcome,
+      {{member_info[0][1]}} !</h1>
+    {% endif %}
+  </div>
+
+  {% if is_member %}
+  <div class="row">
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Check your personal details</h5> <br>
+          <a class="btn btn-dark m-2" href="{{url_for('member_details')}}" role="button">My Details</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Check our trainer's information</h5>
+          <a class="btn btn-dark m-2" href="{{url_for('all_trainers' , member_id = member_id)}}" role="button">Trainers
+            List</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Check upcoming group classes in the next 14 days</h5>
+          <a class="btn btn-dark m-2" href="{{url_for('group_classes')}}" role="button">Class Schedule</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Check your attendance here</h5><br>
+          <a class="btn btn-dark m-2" href="{{url_for('attendance')}}" role="button">My Attendance</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {% endif %}
+
+
+  <hr class="my-4">
+
+  {% if is_member %}
+
+  <br />
+  <h3 class="text-center">Booking Information</h3>
+  <!-- booked upcoming classes and session by the member -->
+
+  {% for info in booking %}
+  <div class="card">
+    {% if info[2] == 'Private Training' %}
+    <img class="card-img-top" src="../static/img/info-1.png" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Session Booking </h5>
+    </div>
+    {% else %}
+    <img class="card-img-top" src="../static/img/info-11.jpg" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Class Booking </h5>
+    </div>
+    {% endif %}
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <h3>{{info[2]}}</h3>
+        <p>Date: {{info[3]}} </p>
+        <p>Time: {{info[6]}} - {{info[7]}} </p>
+        <p>Trainer: {{info[4]}}</p>
+        <p>Location: {{info[5]}}</p>
+
+      </li>
+      <div class="card-body">
+        {% if info[2] == 'Private Training' %}
+        <a href="/member/{{info[0]}}/{{info[2]}}/cancel" class="card-link btn btn-primary"
+          onclick="return confirm('Are you sure to cancel this {{info[2]}} session?')">Cancel</a>
+        {% else %}  
+        <a href="/member/{{info[0]}}/{{info[1]}}/cancel" class="card-link btn btn-primary"
+          onclick="return confirm('Are you sure to cancel this {{info[2]}} session?')">Cancel</a>
+        {% endif %}
+      </div>
+    </ul>
+
+  </div>
+  {% endfor %}
+
+
+
+  <hr class="my-4">
+
+  {% endif %}
+
+
+
+
+
+
+  {% endblock %}

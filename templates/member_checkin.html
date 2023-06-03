@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}My attendance{% endblock %}
+
+
+{% block content %}
+
+<!-- Begin alerts -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+
+<script>
+  Swal.fire({
+    title: "{{ category.title() }}!",
+    text: "{{ message }}",
+    icon: "{{ category }}",
+  })
+</script>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<!-- End alerts -->
+
+<div class="container">
+  <h1 class="heading mt-5">Gym Access</h1>
+  <hr class="my-5">
+  <h5 class="form-signin-heading">Please type in your Member ID to check in/out.</h5>
+  <form class="form-signin" method="POST" action="{{url_for('attendance_tracker')}}">
+    <!-- CSRF token -->
+    {{ form.hidden_tag() }}
+    {{ form.member_id(class="form-control", style="padding: 12px;", placeholder="Member ID") }}
+    {{ form.submit(class="btn btn-primary", style="padding: 7px 20px; margin-top: 18px;") }}
+  </form>
+
+
+</div>
+
+
+
+{% endblock %}

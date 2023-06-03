@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Trainer's Portal{% endblock %}
+
+
+{% block content %}
+
+<!-- Display flash message-->
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+<!-- End of flash message -->
+
+<!-- Jumbotron Start -->
+
+<div class="jumbotron adminbk mt-4">
+  <h3 class="display-6" style="text-align: center; font-family: Arial, Helvetica, sans-serif;">Welcome to
+    {{trainer_info[0].6}}'s Portal, {{ trainer_info[0].1 }} {{ trainer_info[0].2 }}</h3>
+
+  <hr class="my-4">
+  <div style="display: flex; justify-content: center;">
+    <div class="col-sm" style="margin-left: 13%;">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Check your personal details</h5> <br>
+          <a class="btn btn-dark m-2" href="{{url_for('trainer_details', trainer_id = trainer_id)}}"
+            role="button">Personal
+            Details</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Check your trainees in the upcoming sessions</h5>
+          <a class="btn btn-dark mt-2" href="{{url_for('trainees')}}" role="button">Check Trainees</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <!-- trainer's group class schedule -->
+  {% if class_schedule %}
+  <div class="card  class_schedule" style="display: block; width:auto">
+    <div class="card-header">
+      <i class="bi bi-card-list"></i>
+      Group Class Schedule
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <caption>List of group classes</caption>
+        <thead>
+          <tr>
+            <th>Class Name</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>Ending Time</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for info in class_schedule %}
+          <tr>
+            <td>{{info[1]}}</td>
+            <td>{{info[2]}}</td>
+            <td>{{info[3]}}</td>
+            <td>{{info[4]}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- trainer's personal training  schedule -->
+  {% if private_schedule%}
+
+  <div class="card  class_schedule" style="display: block; width:auto">
+    <div class="card-header">
+      <i class="bi bi-card-list"></i>
+      Personal Training Schedule
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <caption>List of personal training sessions</caption>
+        <thead>
+          <tr>
+            <th>Class Name</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>Ending Time</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for info in private_schedule %}
+          <tr>
+            <td>{{info[1]}}</td>
+            <td>{{info[2]}}</td>
+            <td>{{info[3]}}</td>
+            <td>{{info[4]}}</td>
+            <td> <a href="/trainer/{{info[0]}}/{{info[1]}}/cancel" class="card-link btn btn-secondary"
+                onclick="return confirm('Are you sure to cancel this {{info[2]}} session?')">Cancel</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% endif %}
+
+  <!-- Jumbotron End -->
+
+
+
+
+
+
+
+
+
+
+
+
+  {% endblock %}

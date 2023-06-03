@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Traniees List{% endblock %}
+
+
+{% block content %}
+
+
+<button class="btn btn-dark goback-btn" style="margin-left: 5%; margin-top: 5%;" onclick="goBack()">
+  Go Back</button>
+
+
+<div class="info_table mx-3">
+  <h3 class="my-4" style="text-align:center"> Trainees for upcoming sessions </h3>
+
+
+  <table class="table table-hover table-striped ">
+    <caption>Trainees List</caption>
+    <thead>
+
+      <tr>
+        {% for column in column_names %}
+        <th>{{column}}</th>
+        {% endfor %}
+      </tr>
+
+    </thead>
+
+    <tbody>
+      {% for trainee in trainees %}
+      <tr>
+        <td><a href="{{url_for('member_profile', member_id= trainee.0)}}">{{trainee.0}}</a></td>
+        <td>{{trainee.1}}</td>
+        <td>{{trainee.2}}</td>
+        <td>{{trainee.3}}</td>
+        <td>{{trainee.4}}</td>
+        <td>{{trainee.5}}</td>
+        <td>{{trainee.6}}</td>
+        <td>{{trainee.7}}</td>
+
+      </tr>
+      {% endfor %}
+  </table>
+</div>
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Booking{% endblock %}
+
+
+{% block content %}
+
+<h1 class="heading">Booking Form</h1>
+
+<form method="post" action="{{url_for('booking', member_id=member_id )}}">
+
+  <select name="class_id">
+    {% for class in classes %}
+    <option value="{{class.0}}" SELECTED>{{class.0}} {{class.1}} {{class.4}} {{class.5}} - {{class.6}}</option>"
+    {% endfor %}
+  </select>
+  <input class="btn btn-success" type="submit" value="Book" />
+</form>
+
+
+<button class="btn btn-dark goback-btn" onclick="goBack()">Go Back</button>
+
+{% endblock %}

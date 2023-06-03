@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Member Details{% endblock %}
+
+
+{% block content %}
+
+
+
+{% if is_admin %}
+
+<!-- quick access for another search -->
+
+<form class="form-search mt-5" style="text-align: center;" method="POST" action="/admin/search ">
+
+
+  {{form.hidden_tag()}}
+
+
+  {{ form.search(class="searchinput2 mt-2", placeholder="Member ID / Email / Name") }}
+
+  {{ form.submit(value="New Search", class="btn btn-primary btn-block m-2", style="font-size: 16px; padding: 7px
+  15px;")}}
+</form>
+
+<a href="{{url_for('admin')}}" class="btn btn-dark goback-btn mx-5">Back to Admin Portal</a>
+
+
+{% elif is_member %}
+<br>
+<a href="{{url_for('member')}}" class="btn btn-dark goback-btn mx-5">Back to Member Portal</a>
+
+{% elif is_trainer %}
+
+<a href="{{url_for('trainer')}}" class="btn btn-dark goback-btn mx-5 mt-5">Back to Trainer Portal</a>
+
+{% endif %}
+
+{% for info in results %}
+
+<h2 class="heading mt-4" style="text-align: center;"> {{info.1}} {{info.2}}</h1>
+  <div class="info_table mt-5" style="margin-left: 20%;">
+
+
+    <div class="p_container">
+      <div class="row">
+
+        <div class="col-md-4 img" style="margin-top: 20px; margin-right: 10%;">
+          <img src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=644&q=80" class="img-fluid" alt="member photo">
+        </div>
+
+        <div class="col-md-6 details">
+          <blockquote>
+            <small><cite title="Source Title"> Member Details </cite></small>
+          </blockquote>
+
+          <small>Member ID: </small>
+          <h6>{{info.0}}</h6>
+          <small>Date of Birth:</small>
+          <h6>{{info.3}}</h6>
+          <small>Payment Frequency:</small>
+          <h6>{{info.4}}</h6>
+          <small>Email Address:</small>
+          <h6>{{info.5}}</h6>
+          <small>Phone Number:</small>
+          <h6>{{info.6}}</h6>
+          <small>Address:</small>
+          <h6>{{info.7}}</h6>
+          <small>Health Condition:</small>
+          <h6>{{info.8}}</h6>
+          <small>Membership Expiry Date:</small>
+          <h6>{{info.11}}</h6>
+          <small>Active Status:</small>
+          {% if info.9 == 1 %}
+          <h6>Active</h6>
+          {% else %}
+          <h6 style="color: red;">Cancelled</h6>
+          {% endif %}
+
+          {% if is_admin %}
+          <a type="button" class="btn btn-info" id="myBtn" data-bs-toggle="modal" data-bs-target="#myModal">
+            Edit </a>
+          <br>
+          <br>
+          <a class="btn btn-danger" id="delete_btn" href="/admin/deactive/{{info[0]}}"
+            onclick="return confirm('Are you sure to deactivate this member?')">
+            Deactivate </a>
+
+          {% elif is_member %}
+          <a type="button" class="btn btn-secondary" id="myBtn" data-bs-toggle="modal" data-bs-target="#myModal">
+            Edit </a>
+          <br>
+          <br>
+
+          <form method="post" action="/member/{{info[0]}}/renew">
+            <input type="hidden" name="payment_frequecy" value="{{info[4]}}">
+            <input class="btn btn-success" type="submit" value="Renew Membership" />
+          </form>
+
+          {% endif %}
+          <!-- Modal Edit Customer Details-->
+          <div class=" modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Update Information</h4>
+                </div>
+                <div class="modal-body" id="modal-body">
+                  {% if is_admin %}
+                  <form action="{{url_for('admin_edit', member_id=info[0] ) }}" method="POST">
+                    {% elif is_member %}
+                    <form action="/member/{{info[0]}}/edit" method="POST">
+                      {% endif %}
+
+
+                      {% if is_admin %}
+                      <div class="form-group">
+                        <label>First Name:</label>
+                        <input type="hidden" name="member_id" value="{{info[0]}}">
+                        <input type="text" class="form-control" id="firstname" name="firstname" value="{{info[1] }}">
+                      </div>
+                      <div class="form-group">
+                        <label>Last Name:</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" value="{{info[2]}}">
+                      </div>
+                      <div class="form-group">
+                        <label>Date of Birth:</label>
+                        <input type="text" class="form-control" id="dob" name="dob" value="{{info[3]}}">
+                      </div>
+                      <div class="form-group">
+                        <label>Email Address:</label>
+                        <input type="text" class="form-control" id="email" name="email" value="{{info[5]}}">
+
+                        {% endif %}
+
+                        <div class="form-group">
+                          <label>Payment Frequency:</label>
+                          <select class="form-control" id="payment_frequency" name="payment_frequency">
+                            <option selected>{{info[4]}}</option>
+                            <option disabled>________</option>
+                            {% for p in pmf %}
+                            <option value="{{p[0]}}">{{p[0]}}</option>
+                            {% endfor %}
+
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label>Phone Number:</label>
+                          <input type="text" class="form-control" id="phone" name="phone" value="{{info[6]}}">
+                        </div>
+                        <div class="form-group">
+                          <label>Address:</label>
+                          <input type="text" class="form-control" id="address" name="address" value="{{info[7]}}">
+                        </div>
+
+                        <div class="form-group">
+                          <label>Health Condition:</label>
+                          <input type="text" class="form-control" id="health_condition" name="health_condition"
+                            value="{{info[8]}}">
+                        </div>
+
+                      </div>
+                      <div class="modal-footer justify-content-between">
+                        <button class="btn btn-primary modal-btn float-left" type="submit">Update</button>
+                        <button type="button" class="btn btn-secondary float-right"
+                          data-bs-dismiss="modal">Close</button>
+                      </div>
+
+                    </form>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+
+    {% endblock %}

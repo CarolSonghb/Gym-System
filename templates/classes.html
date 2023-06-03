@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Classes{% endblock %}
+
+
+{% block content %}
+
+<h1 class="heading">Class Schedule</h1>
+
+
+{% if trainer_session %}
+
+<div class="info_table mx-3">
+  <h3 style="text-align:center"> Trainer Session Schedule </h3>
+  <table class="table table-hover table-striped ">
+    <caption>Trainer sessions</caption>
+
+    {%elif group_class %}
+    <div class="info_table mx-3">
+      <h3 style="text-align:center"> Group Class Schedule </h3>
+      <table class="table table-hover table-striped ">
+        <caption>Group classes</caption>
+        {%endif%}
+        <thead>
+
+          <tr>
+            {% for column in column_names %}
+            <th>{{column}}</th>
+
+            {% endfor %}
+            <th>Price</th>
+            <th>Book</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+          {% for class in classes %}
+          <tr>
+            <td>{{class.0}}</td>
+            <td>{{class.1}}</td>
+            <td>{{class.2}}</td>
+            <td>{{class.3}}</td>
+            <td>{{class.4}}</td>
+            <td>{{class.5}}</td>
+            <td>{{class.6}}</td>
+
+            {% if trainer_session %}
+            <td> $35 </td>
+            <form href="{{url_for('book_sessions', trainer_id=trainer_id, member_id=member_id )  }}" method="post">
+              <td><input type="checkbox" name="session_id" value="{{class.0}}" /></td>
+              {%elif group_class %}
+              <td> $0 </td>
+              <form action="{{url_for('booking', member_id=member_id )}}" method="post">
+                <td><input type="checkbox" name="class_id" value="{{class.0}}" /></td>
+                {%endif%}
+
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+
+      <input class="btn btn-success" type="submit" value="Submit" />
+      </form>
+
+    </div>
+    <br />
+    <button class="btn btn-dark goback-btn" onclick="goBack()">Go Back</button>
+
+    {% endblock %}

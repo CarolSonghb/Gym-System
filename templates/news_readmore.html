@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}News{% endblock %}
+
+
+{% block content %}
+
+<div class="single-news-container my-5">
+  <a class="btn btn-dark" href="{{ url_for('news') }}">Back to Gym News</a>
+
+  {% for content in news%}
+
+  <div class="news mt-5">
+    <h2>{{ content[2]}}</h2>
+    <p class="news-date">{{ content[4] }}</p>
+    <p class="main-content mb-5" style="white-space: pre-line">{{ content[3] }}</p>
+  </div>
+
+  {% endfor %}
+
+
+
+  {% if session.get('user_type') in ['Admin', 'Manager'] %}
+  <a class="btn btn-info" style="margin-left: 5%; margin-right: 10%;" href="{{ url_for('news_edit', news_id=news_id) }}">Edit</a>
+  <a class="btn btn-danger" href="{{ url_for('news_delete', news_id=news_id) }}">Delete</a>
+  {% endif %}
+</div>
+
+{% endblock %}
