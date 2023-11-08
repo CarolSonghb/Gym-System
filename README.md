@@ -6,10 +6,10 @@
 
 ## Features
 *You can test the system by using*  
-Manager: John@lincolnfitness.co.nz
-Trainer: Sarah@lincolnfitness.co.nz
-Admin: Li@lincolnfitness.co.nz
-Member: Eve.Miller@gmail.com
+Manager: John@lincolnfitness.co.nz  
+Trainer: Sarah@lincolnfitness.co.nz  
+Admin: Li@lincolnfitness.co.nz  
+Member: Eve.Miller@gmail.com  
 
 Lincoln Fitness is a gym with 1000 members and 10 personal trainers, and they are looking to automate their current manual system for managing members and trainers. This system will keep track of the members' subscription payments, their usage of the gym, and allow members to book exercise sessions with personal trainers.
 
